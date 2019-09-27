@@ -22,15 +22,3 @@ Axios.post(`${BASE_URL}${url}`, data)
 .then(res => res)
 .catch(error => Promise.reject(error))
 
-export const getResponseMock = async params =>{
-    const  data  = await Axios.get(`${BASE_URL_MOCK}${params}`)
-    .then(({data}) => data);
-    return data;
-}
-
-
-export const postResponseMock = async params =>{
-    const  data  = await Axios.get(`${BASE_URL_MOCK}${params}`)
-    .then(({data}) => data);
-    return data;
-}

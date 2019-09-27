@@ -9,7 +9,7 @@ import "./chat.css";
         this.state={
             receiverID : this.props.state.group,
             message: null,
-            group: [],
+            groupMessage: [],
             user:{}
         };
 
@@ -51,11 +51,11 @@ import "./chat.css";
 
         this.messageReq.fetchPrevious().then(
             messages => {
-                this.setState({group:[]},() =>{
-                    return{group:[]};
+                this.setState({groupMessage:[]},() =>{
+                    return{groupMessage:[]};
                 });
-                this.setState({group: messages}, () =>{
-                    return{group: messages};
+                this.setState({groupMessage: messages}, () =>{
+                    return{groupMessage: messages};
                 });
             },
             error => {

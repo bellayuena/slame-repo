@@ -1,0 +1,92 @@
+import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
+import { CometChat } from "@cometchat-pro/chat";
+//import "./create-group.css";
+
+class CreateGroup extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.groupType = CometChat.GROUP_TYPE.PUBLIC;
+        this.password = "";
+
+        this.onGetGroupName = this.onGetGroupName.bind(this);
+        this.onGetGUID = this.onGetGUID.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.createGroup = this.createGroup.bind(this);
+
+        this.state = {
+            GUID: "",
+            groupName: "",
+            status: false,
+            error: false
+        };
+    }
+
+    onGetGroupName(e) {
+        e.preventDefault();
+        this.CreateGroup();
+    }
+
+    renderRedirect = () => {
+        return <Redirect to="/dashboard" />;
+    }
+
+    createGroup() {
+        this.group = new CometChat.Group(
+            this.state.GUID,
+            this.state.groupName,
+            this.groupType,
+            this.password
+        );
+
+        CometChat.createGroup(this.group).then(
+            group => {
+                console.log("Group created successfully:", group);
+                this.setState({ status: true });
+            },
+            error => {
+                console.log("Group creation failed with exception", error);
+                this.setState({ error: true });
+            }
+        );
+    }
+
+    render() {
+        return (
+            <div className="modalCreate">
+                <div id="open-modal" className="modal-window">
+                    <div>
+                        <Link tp="#" title="Close" className="modal-close">
+                            Close
+                        </Link>
+                        <h1>Enter Group Name</h1>
+                        <form onSubmit={this.onSubmit}>
+                            <div>
+                                <input
+                                    className="groupname"
+                                    onChange={this.onGetGroupName}
+                                    placeholder="Group Name"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    className="groupname"
+                                    onChange={this.onGetGUID}
+                                    placeholder="GUID"
+                                />
+                            </div>
+                            <button className="button modalbutton">Create Group</button>
+                        </form>
+                        <p>{this.state.status ? this.renderRedirect() : ""}</p>
+                        <p>{this.state.error ? "Group creation failed" : ""}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        )
+    }
+}
+export default CreateGroup;
