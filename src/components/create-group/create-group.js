@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { CometChat } from "@cometchat-pro/chat";
-//import "./create-group.css";
+import "./create-group.css";
 
 class CreateGroup extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.groupType = CometChat.GROUP_TYPE.PUBLIC;
         this.password = "";
 
@@ -24,10 +25,19 @@ class CreateGroup extends React.Component {
     }
 
     onGetGroupName(e) {
-        e.preventDefault();
-        this.CreateGroup();
+        this.setState({ groupName: e.target.value });
+        console.log(e.target.value);
     }
 
+    onGetGUID(e) {
+        this.setState({ GUID: e.target.value });
+        console.log(e.target.value);
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        this.createGroup();
+    }
     renderRedirect = () => {
         return <Redirect to="/dashboard" />;
     }
@@ -54,10 +64,10 @@ class CreateGroup extends React.Component {
 
     render() {
         return (
-            <div className="modalCreate">
+            <div className="modalcreate">
                 <div id="open-modal" className="modal-window">
                     <div>
-                        <Link tp="#" title="Close" className="modal-close">
+                        <Link to="#" title="Close" className="modal-close">
                             Close
                         </Link>
                         <h1>Enter Group Name</h1>
@@ -82,11 +92,9 @@ class CreateGroup extends React.Component {
                         <p>{this.state.error ? "Group creation failed" : ""}</p>
 
                     </div>
-
                 </div>
-
             </div>
-        )
+        );
     }
 }
 export default CreateGroup;

@@ -8,7 +8,7 @@ import "./chat.css";
 
         this.state={
             receiverID : this.props.state.group,
-            message: null,
+            messageText: null,
             groupMessage: [],
             user:{}
         };
@@ -16,7 +16,7 @@ import "./chat.css";
 
         
     this.receiverID = this.state.receiverID;
-    this.message = CometChat.MESSAGE_TYPE.TEXT;
+    this.messageType = CometChat.MESSAGE_TYPE.TEXT;
     this.receiverType = CometChat.RECEIVER_TYPE.GROUP;
     this.limit=30;
     this.send= this.send.bind(this);
@@ -35,6 +35,9 @@ import "./chat.css";
                 return {receiverID: this.props.state.group};
             });            
         } 
+        else{
+
+        }
     }
 
     componentDidMount(){
@@ -68,15 +71,15 @@ import "./chat.css";
     send(){
         this.textMessage = new CometChat.TextMessage(
             this.state.receiverID,
-            this.state.message,
+            this.state.messageText,
             this.state.messageType,
             this.receiverType
         );
 
         CometChat.sendMessage(this.textMessage).then(
             message =>{
-                console.log("Message sent successfully:". message);
-                this.setState({message: null});
+                console.log("Message sent successfully:", message);
+                this.setState({messageText: null});
                 this.update();
             },
             error=>{
@@ -97,7 +100,7 @@ import "./chat.css";
     }
 
     handleChange(e){
-        this.setState({message: e.target.value});
+        this.setState({messageText: e.target.value});
     }
 
     getUser(){
@@ -159,7 +162,7 @@ import "./chat.css";
             "Please, choose a group to start chatting..."
           )}
         </div>
-        )
+        );
     }
 }
 

@@ -1,36 +1,35 @@
 import React from "react";
-
-import Groups from "../components/group/group";
+import Group from "../components/group/group";
 import Chatbox from "../components/chatbox/chat";
 
 
-class Dashboard extends React.Component{
+class Dashboard extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            group:"supergroup",
+        this.state = {
+            group: "supergroup",
             startChatStatus: false
         };
 
-        this.updateStatus= this.updateStatus.bind(this);
+        this.updateState = this.updateState.bind(this);
     }
 
-    updateStatus(group){
-        this.setState({group: group}, ()=>{
+    updateState(group) {
+        this.setState({ group: group }, () => {
             console.log("State in parent:" + this.state.group);
-            console.log("Group in parent"+group);
-            return{group:group};
+            console.log("Group in parent" + group);
+            return { group: group };
         });
 
-        this.setState({startChatStatus:true});
+        this.setState({ startChatStatus: true });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-               <Groups updateState={this.updateState}/>
-               <Chatbox state = {this.state}/>
+                <Group updateState={this.updateState} />
+                <Chatbox state={this.state} />
 
             </div>
         )

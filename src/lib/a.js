@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { CometChat } from "@cometchat-pro/chat";
 import { API_KEY } from "../util/api";
-//import "./index.css";
-//import Loading from "./loading.svg";
+import "./login.css";
 
 export default class Login extends Component {
   constructor(props) {
