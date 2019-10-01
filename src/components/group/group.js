@@ -40,7 +40,7 @@ class Groups extends React.Component {
                 console.log("Group joined successfully", group);
             },
             error => {
-                console.log("Group joinin failed with error", error);
+                console.log("Group joining failed with error", error);
             }
         );
     }

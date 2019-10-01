@@ -72,7 +72,7 @@ import "./chat.css";
         this.textMessage = new CometChat.TextMessage(
             this.state.receiverID,
             this.state.messageText,
-            this.state.messageType,
+            this.messageType,
             this.receiverType
         );
 
