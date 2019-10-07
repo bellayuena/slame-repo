@@ -1,11 +1,12 @@
 import axios from 'axios';
 import Cookies from 'cookies-js';
-import {postResponse} from '../util/api';
+import {API_ID} from '../util/api';
+import Axios from 'axios';
 
 export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
 
 
-export function loginOnRequest(data){
+export function loginSubmit(data){
     return {
         type: LOGIN_SUBMIT,
         data,
@@ -14,14 +15,15 @@ export function loginOnRequest(data){
 
 export function postLogin(data){
     return (dispatch) =>{
-        postResponse('/add-user', {email: data.username, password: data.password})
-        .then(({data})=>{
-            console.log('res',data)
-            Cookies.set('token',data.token);
-            Cookies.set('data', JSON.stringify({email: data.email}));
-            Cookies.set('isValid',JSON.stringify({isValid: data.isValid}));
+        return  Axios.post(API_ID, { email: data.username })
+        .then(
+            ({ data }) => {
+                console.log('res', data)
+                Cookies.set('set', data.token)
+                Cookies.set('data',JSON.stringify({email:data.email }));
 
-            dispatch(loginOnRequest(data))
-        });
-    }
+                dispatch(loginSubmit(data));
+            }
+        );
+};
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect,Link } from "react-router-dom";
 import { CometChat } from "@cometchat-pro/chat";
 import { API_KEY } from "../util/api";
 import "./login.css";
@@ -35,6 +35,7 @@ export default class Login extends Component {
     return <Redirect to="/dashboard" />;
   };
 
+
   isLoggedIn() {
     CometChat.login(this.state.userName, API_KEY).then(
       User => {
@@ -66,18 +67,19 @@ export default class Login extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button className="button modalbutton">Login</button>
+              <button className="button modalbutton"  type="primary"
+                            htmlType="submit">Login</button>  Or <Link to="register">register now!</Link>
+              {/* <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="login-form-button"
+                            >
+                            Log in
+                            </Button>
+                            Or <Link to="register">register now!</Link> */}
             </form>
             <div className="error">{this.state.error}</div>
-            <div>
-              {this.state.isLoading ? (
-                <p className="loading">
-                  {/* <img alt="loading" src={Loading} /> */}
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
+            
           </div>
         </div>
       </React.Fragment>

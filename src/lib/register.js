@@ -15,6 +15,7 @@ import React from 'react';
 import {Formik} from 'formik';
 import "./register.css";
 import { format } from "url";
+import { Redirect } from "react-router-dom";
 
 const {Option} = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -22,7 +23,8 @@ const AutoCompleteOption = AutoComplete.Option;
 class RegistrationForm extends React.Component{
     state = {
         confirmDirty:false,
-        autoCompleteResult: []
+        autoCompleteResult: [],
+        
     };
 
     handleSubmit = e =>{
@@ -30,7 +32,9 @@ class RegistrationForm extends React.Component{
         this.props.Form.validateFieldAndScroll((err,values) =>{
             if (!err){
                 console.log("Received values of form:", values);
+               
             }
+            
         });
     };
 
@@ -79,6 +83,10 @@ class RegistrationForm extends React.Component{
         props.setFieldValue('location',e)
     }
 
+    renderRedirect = () => {
+        return <Redirect to="/dashboard" />;
+    }
+
     render(){
         const {autoCompleteResult} = this.state;
         const websiteOptions = autoCompleteResult.map(website =>(
@@ -86,6 +94,7 @@ class RegistrationForm extends React.Component{
         ) );
 
         return(
+            <div>
             <Formik
             initialValues= {{email:"", password:"", passwordConfirm:"",username:"",}}
             onSubmit={this.handleSubmitForm}
@@ -192,16 +201,18 @@ class RegistrationForm extends React.Component{
                                 </Checkbox>
                             </Form.Item>
                             <Form.Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary"  htmlType="submit" >
                             Register
                             </Button>
+                          
                             </Form.Item>
                         </Form>
+                        
                     )
                 }}
-
-
             </Formik>
+            
+         </div>
         )
     }
 }
